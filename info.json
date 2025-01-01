@@ -1,0 +1,18 @@
+[
+    {
+        "guess": "crane",
+        "response": "01012"
+    },
+    {
+        "guess": "trial",
+        "response": "01000"
+    },
+    {
+        "guess": "cones",
+        "response": "00110"
+    },
+    {
+        "guess": "jumpy",
+        "response": "00000"
+    }
+]
