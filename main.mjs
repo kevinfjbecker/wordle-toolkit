@@ -2,7 +2,7 @@ import * as fs from 'fs'
 
 ///////////////////////////////////////////////////////////////////////////////
 
-const wordsFileContent = fs.readFileSync('sgb-words.txt').toString()
+const wordsFileContent = fs.readFileSync('possible_words.txt').toString()
 const words = wordsFileContent.split('\n')
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -19,24 +19,46 @@ const noCharacterAt = (c, i) => (s) => s[i] !== c
 ///////////////////////////////////////////////////////////////////////////////
 
 let filteredWords = words.slice()
+const includedLetters = []
 for(const { guess, response } of information)
 {
-    for(let i = 0; i < guess.length; i++)
+    /*
+     * Need to check for included letters first
+     */
+    const orderedIndices = Object.entries(response)
+        .toSorted((a, b) => +b[1] - +a[1])
+        .map(a => +a[0])
+    for(const i of orderedIndices)
     {
         if(response[i] === '0')
         {
-            filteredWords = filteredWords.filter(excluded(guess[i]))
+            if(includedLetters.includes(guess[i]))
+            {
+                filteredWords = filteredWords.filter(noCharacterAt(guess[i]))
+            }
+            else
+            {
+                filteredWords = filteredWords.filter(excluded(guess[i]))
+            }
         }
         if(response[i] === '1')
         {
+            if(!includedLetters.includes(guess[i]))
+            {
+                includedLetters.push(guess[i])
+            }
             filteredWords = filteredWords.filter(noCharacterAt(guess[i], i))
             filteredWords = filteredWords.filter(contains(guess[i]))
             
         }
         if(response[i] === '2')
+        {
+            if(!includedLetters.includes(guess[i]))
             {
-                filteredWords = filteredWords.filter(characterAt(guess[i], i))
-                filteredWords = filteredWords.filter(contains(guess[i]))
+                includedLetters.push(guess[i])
+            }
+            filteredWords = filteredWords.filter(characterAt(guess[i], i))
+            filteredWords = filteredWords.filter(contains(guess[i]))
         }
     }
 }

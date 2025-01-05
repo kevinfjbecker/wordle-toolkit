@@ -1,18 +1,22 @@
 [
     {
-        "guess": "crane",
-        "response": "01012"
+        "guess": "cones",
+        "response": "20020"
     },
     {
         "guess": "trial",
         "response": "01000"
     },
     {
-        "guess": "cones",
-        "response": "00110"
+        "guess": "cheer",
+        "response": "20022"
     },
     {
-        "guess": "jumpy",
-        "response": "00000"
+        "guess": "ceder",
+        "response": "20022"
+    },
+    {
+        "guess": "curer",
+        "response": "20022"
     }
 ]
