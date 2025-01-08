@@ -1,7 +1,6 @@
 
 export const getFilteredWords = (words, information) =>
 {
-
     let filteredWords = words.slice()
     const includedLetters = []
     for(const { guess, response } of information)
@@ -22,7 +21,7 @@ export const getFilteredWords = (words, information) =>
                 if(includedLetters.includes(guess[i]))
                 {
                     filteredWords =
-                        filteredWords.filter(noCharacterAt(guess[i]))
+                        filteredWords.filter(noCharacterAt(guess[i], i))
                 }
                 else
                 {
@@ -30,6 +29,7 @@ export const getFilteredWords = (words, information) =>
                         filteredWords.filter(excluded(guess[i]))
                 }
             }
+
             if(response[i] === '1')
             {
                 if( ! includedLetters.includes(guess[i]))
@@ -43,6 +43,7 @@ export const getFilteredWords = (words, information) =>
                 filteredWords =
                     filteredWords.filter(contains(guess[i]))
             }
+
             if(response[i] === '2')
             {
                 if(!includedLetters.includes(guess[i]))

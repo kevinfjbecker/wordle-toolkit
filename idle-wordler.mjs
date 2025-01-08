@@ -21,7 +21,7 @@ let filteredWords = words
 
 for(let i = 1; i <= 6; i++)
 {
-    filteredWords = getFilteredWords(words, information)
+    filteredWords = getFilteredWords(filteredWords, information)
     
     const guess = getHighLetterFrequencyWords(filteredWords)
         .toSorted((a,b) => b.cumulativeLetterCount - a.cumulativeLetterCount)
