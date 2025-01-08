@@ -1,9 +1,11 @@
 import * as fs from 'fs'
 
+import { getHighLetterFrequencyWords } from './letter-counts.mjs'
+
 ///////////////////////////////////////////////////////////////////////////////
 
-const wordsFileContent = fs.readFileSync('possible_words.txt').toString()
-const words = wordsFileContent.split('\n')
+const wordsFileContent = fs.readFileSync('allowed_words.txt').toString()
+const words = wordsFileContent.split('\n').filter(w => !! w)
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -69,6 +71,11 @@ if(filteredWords.length > 1)
 {
     console.log(`There are ${filteredWords.length} possible words`)
     console.log(`The possible words are ${filteredWords}`)
+    console.log(`Try ${
+        getHighLetterFrequencyWords(filteredWords)
+            .toSorted((a,b) => b.cumulativeLetterCount - a.cumulativeLetterCount)
+            [0].word
+    }`)
 }
 if(filteredWords.length === 1)
 {

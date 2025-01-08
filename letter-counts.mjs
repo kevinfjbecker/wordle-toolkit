@@ -1,21 +1,67 @@
-import { count } from 'console'
-import * as fs from 'fs'
 
-const wordsFileContent = fs.readFileSync('sgb-words.txt').toString()
-
-const words = wordsFileContent.split('\n')
-
-const counts = {}
-
-for(const w of words)
+export const getBasicLetterFequency = (words) =>
 {
-    for(const c of w)
+    const counts = {}
+
+    for(const w of words)
     {
-        counts[c] = counts[c] ? counts[c] + 1 : 1
+        for(const c of w)
+        {
+            counts[c] = counts[c] ? counts[c] + 1 : 1
+        }
     }
+
+    return counts
 }
 
+export const getLetterFrequecyByPosition = (words) =>
+{
+    const positionLetterCount = []
 
-console.table(Object.entries(counts).sort((a, b) => a[0] > b[0] ? 1 : -1))
+    for(const word of words)
+    {
+        for(let i = 0; i < 5; i++)
+        {
+            const letter = word[i]
+            if(positionLetterCount[i] === undefined)
+            {
+                positionLetterCount[i] = [{letter, count: 1}]
+            }
+            else if( ! positionLetterCount[i].find(plc =>
+                plc.letter === letter
+            ))
+            {
+                positionLetterCount[i].push({letter, count: 1})
+            }
+            else
+            {
+                const plc = positionLetterCount[i].find(plc =>
+                    plc.letter === letter
+                )
+                plc.count++
+            }
+    
+        }
+    }
 
-console.table(Object.entries(counts).sort((a, b) => b[1] - a[1]))
+    return positionLetterCount
+}
+
+export const getHighLetterFrequencyWords = (words) =>
+{
+    const positionLetterCount = getLetterFrequecyByPosition(words)
+
+    return words.map(word =>
+    {
+        let cumulativeLetterCount = 0
+        for(let i = 0; i < 5; i++)
+        {
+            const letter = word[i]
+        
+            cumulativeLetterCount += positionLetterCount[i].find(plc =>
+                plc.letter === letter
+            ).count
+        }
+        return { word, cumulativeLetterCount }
+    })
+}

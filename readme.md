@@ -1,6 +1,6 @@
 # Wordle Toolkit
 
-A lightweight tool that reads a JSON file with guesses and responses and returns possible solutions for a Wordle.wo
+A lightweight tool that reads a JSON file with guesses and responses and returns possible solutions for a Wordle.
 
 ## How to run it
 
@@ -20,11 +20,16 @@ This is an array of objects. The objects have two fields ```guess``` and ```resp
 }
 ```
 
-The ```respons``` corresponds to the colors marking in the letters guessed in a Wordle game.
+The ```response``` corresponds to the colors marking in the letters guessed in a Wordle game.
 
-* 0: black -- not contained in the word
+* 0: grey -- not contained in the word
 * 1: yellow -- contained but misplaced
 * 2: green -- in its correct position
+
+Notes on wordle responses for duplicate letter in guesses:
+
+* the second instance of a  letter will be grey if both are out of place
+* the unmatched letter will be grey if the other is correctly placed
 
 ## Wordlists
 
