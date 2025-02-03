@@ -8,7 +8,10 @@ import { getFilteredWords } from './word-list-filter.mjs'
 ///////////////////////////////////////////////////////////////////////////////
 
 const wordsFileContent = fs.readFileSync('allowed_words.txt').toString()
-const words = wordsFileContent.split('\n').filter(w => !! w)
+const words = wordsFileContent
+    .split('\n')
+    .map(w => w.trim())
+    .filter(w => !! w)
 
 ///////////////////////////////////////////////////////////////////////////////
 

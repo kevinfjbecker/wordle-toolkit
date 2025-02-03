@@ -5,7 +5,10 @@ import { getFilteredWords } from './word-list-filter.mjs'
 ///////////////////////////////////////////////////////////////////////////////
 
 const wordsFileContent = fs.readFileSync('possible_words.txt').toString()
-const words = wordsFileContent.split('\n').filter(w => !! w)
+const words = wordsFileContent
+    .split('\n')
+    .map(w => w.trim())
+    .filter(w => !! w)
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -18,7 +21,7 @@ const filteredWords = getFilteredWords(words, information)
 if(filteredWords.length > 1)
 {
     console.log(`There are ${filteredWords.length} possible words`)
-    console.log(`The possible words are ${filteredWords}`)
+    console.log('The possible words are', filteredWords)
 }
 if(filteredWords.length === 1)
 {
